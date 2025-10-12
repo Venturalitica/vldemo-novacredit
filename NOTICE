@@ -1,0 +1,15 @@
+This directory bundles the Statlog (German Credit Data) dataset.
+
+Source:  https://archive.ics.uci.edu/dataset/144 (UCI Machine Learning Repository, dataset #144)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+Cite:    UCI Machine Learning Repository, Statlog (German Credit Data), dataset #144.
+
+Redistributed unmodified for the venth `novacredit` demo example. The columns
+`target` (1=good/0=bad) and `gender` (male/female) are derived for the fairness
+evaluation; see data/german_credit.croissant.json for the field-level provenance.
+
+DISCLOSURE: this same German Credit benchmark backs all three credit demos —
+loan-scoring, novacredit and consumer-credit — which share one fairness
+measurement (demographic parity on `gender`, seed 42). They illustrate distinct
+governance journeys, not three independent systems or three independent
+measurements. See venth.yaml (classification.rationale) for the signed disclosure.

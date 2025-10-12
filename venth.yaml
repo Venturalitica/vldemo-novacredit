@@ -1,0 +1,281 @@
+apiVersion: venturalitica.ai/v1alpha1
+kind: AISystem
+
+# ── Plantilla de gobernanza FICCIONALIZADA del repo demo público `vldemo-novacredit`.
+# Pipeline ML REAL: Statlog (German Credit, UCI, CC-BY-4.0) cargado vía Croissant, modelo
+# LogisticRegression + fairlearn DemographicParity, gobernado por la SDK venturalitica
+# (DAG DVC featurize → evaluate: `vl.monitor`/`vl.enforce` miden el control de equidad y
+# promueven el ML-BOM CycloneDX). El motor MIDE el control sobre datos reales y deriva el
+# ciclo de vida ISO 23894.
+#
+# ── HISTORIA: éxito LIMPIO within-appetite (contrapunto a loan-scoring) ─────────
+# Variante INTERPRETABLE del scoring crediticio. Apetito MÁS RESTRICTIVO que loan
+# (society MEDIUM, no HIGH; criterio del residual global MEDIUM, no HIGH) y, aun así,
+# TODOS los residuales caen DENTRO del apetito → `overall_residual = within`. El control
+# medido de equidad pasa LIMPIO desde el inicio (un ÚNICO run con `mitigate: true`, sin arco
+# rojo): demuestra que un proveedor que gobierna formalmente sus riesgos llega a `approved`
+# sin tratamiento correctivo, y permite ilustrar el RE-CIERRE del bucle de revisión periódica
+# (review → re-approve). SIN riesgo per-riesgo sin tratar: historia limpia (no A.1.c).
+#
+# OPSEC: la entidad DORA es FICTICIA (LEI inventado, "NovaCredit Example SA"). Cero codenames.
+# SIN datos reales.
+
+# ── 1. Identidad y finalidad del sistema ─────────────────────────────────────
+system:
+  name: pilot-novacredit
+  intended_purpose: "Scoring crediticio interpretable para la aprobación de préstamos al consumo, con explicabilidad por diseño."
+  organization: NovaCredit Example SA
+  version: "1.0.0"
+  decisions: [loan_approval, loan_denial]
+  affected_persons: [solicitantes]
+  component_type: ai-model
+  # Mal uso razonablemente previsible (ISO 42001 6.1.4 / EU AI Act Art.9(2)(b)).
+  potential_misuses:
+    - id: mu.unfair-subgroups
+      description: "Aplicar el modelo a poblaciones infrarrepresentadas asumiendo equidad sin verificarla por grupo."
+      addressed_by: [risk.unfair-credit-exclusion]
+    - id: mu.proxy-discrimination
+      description: "Introducir variables proxy de atributos protegidos (CP, nombre) para sortear los controles de equidad."
+      addressed_by: [risk.unfair-credit-exclusion, risk.data-governance]
+    - id: mu.out-of-purpose
+      description: "Reutilizar el score para decisiones fuera del crédito al consumo (empleo, seguros, alquiler)."
+      addressed_by: []   # SIN ATENDER: control de despliegue/gobernanza, no de este programa técnico
+
+# ── 2. Naturaleza de la tarea ────────────────────────────────────────────────
+task:
+  modality: tabular
+  type: classification
+
+# ── 3. Marco regulatorio ─────────────────────────────────────────────────────
+# Scoring crediticio automatizado para aprobación de préstamos al consumo — alto riesgo
+# (EU AI Act Anexo III §5(b)). Operado por una ENTIDAD FINANCIERA → el modelo es un activo
+# TIC sujeto a DORA (Reg. UE 2022/2554), además del EU AI Act.
+context:
+  applicable_standards:
+    - eu/pren-18228@2026
+    - iso/23894@2023
+    - eu/ai-act@2024
+    - eu/dora@2022
+    - eu/pren-18283@2026
+    - eu/pren-18282@2026
+  # Entidad DORA reportante (Reg. UE 2022/2554 + ITS Reg. UE 2024/2956 Anexo I tabla B_01.01).
+  # FICTICIA — datos de demostración, no corresponden a ninguna entidad real.
+  dora:
+    entity:
+      lei: "999999FAKENOVA999"
+      legalName: "NovaCredit Example SA"
+      country: "ES"
+      entityType: "credit_institution"
+
+# ── 4. Datos y modelo ────────────────────────────────────────────────────────
+# Dataset REAL: Statlog (German Credit, UCI #144, CC-BY-4.0) cargado vía Croissant (§2,
+# data/german_credit.croissant.json) — no read_csv a mano. Modelo: LogisticRegression con
+# mitigación fairlearn DemographicParity (in-processing, ExponentiatedGradient) desde el
+# primer run. `artifacts.model` declara el descriptor del modelo (necesario para que el motor
+# materialice la fase de medición y `sei run` mida el control con un `risk_id` → habilita
+# `sei reconstruct`).
+artifacts:
+  model: { kind: logreg, seed: 1 }
+
+# ── 5. Medición y reproducción ───────────────────────────────────────────────
+# Pipeline DVC REAL (DAG featurize → evaluate): `featurize.py` carga German Credit vía
+# Croissant y deriva `target`/`gender` → data/features.parquet; `evaluate.py` entrena LogReg
+# + fairlearn DemographicParity (train.py) y corre la SDK venturalitica (compliance_eval.py:
+# `vl.monitor`/`vl.enforce` evalúan el OSCAL en dos fases Art.10/Art.15) → `metrics.json`
+# (clave = `id` de la medida, con su bloque `power`/IC95%) + promueve el ML-BOM CycloneDX a
+# `.venturalitica/bom.json`. NovaCredit es un proveedor within-appetite BIEN GOBERNADO: un
+# ÚNICO run con `mitigate: true` (sin arco rojo→verde). M-11: la equidad se mide held-out (n=200);
+# el punto cumple pero el IC cruza → control INCONCLUSO (no «verde»). El within-appetite agregado
+# lo sostienen los niveles de riesgo declarados, no el control de equidad.
+pipeline: { tool: dvc, metrics: metrics.json, params: params.yaml }
+oscal: { assessment_plan: shared_data/policies/assessment_plan.oscal.yaml }
+
+# ── 5b. Evaluación declarada por humano (F5) ─────────────────────────────────
+classification:
+  tier: high
+  basis:
+    - "EU AI Act Annex III §5(b) (evaluación de solvencia / credit scoring)"
+    - "Reg. UE 2022/2554 DORA Art.6 (riesgo TIC de la entidad financiera)"
+  rationale: |
+    Scoring crediticio interpretable para aprobación de préstamos al consumo
+    (perfil within-appetite, demo NovaCredit). Alto riesgo §5(b).
+
+    DISCLOSURE (demo ilustrativo): los tres demos de crédito — loan-scoring,
+    novacredit y consumer-credit — comparten el MISMO benchmark público German
+    Credit (UCI #144) y una medición de equidad común (paridad demográfica sobre
+    `gender`, seed 42). Ilustran TRAYECTORIAS DE GOBERNANZA distintas (aquí:
+    within-appetite limpio desde el primer run), no son tres sistemas reales
+    independientes ni tres mediciones independientes. El número de equidad es
+    compartido por diseño.
+
+# ── 6. Programa de riesgos within-appetite (Art.9) ───────────────────────────
+# Perfil WITHIN-APPETITE de NovaCredit: modelo logístico interpretable con controles REDUCE
+# reales. Apetito más RESTRICTIVO que loan-scoring (society MEDIUM; criterio del residual
+# global MEDIUM). Agregado esperado: Within (bias MEDIUM · data-gov ≤MEDIUM · opacity MEDIUM
+# ≤ criterio MEDIUM → overall residual Within). El control de equidad se mide held-out y resulta
+# INCONCLUSO (n=200): no contradice el within-appetite agregado, pero tampoco lo confirma con potencia.
+risk:
+  appetite: { individual: MEDIUM, society: MEDIUM, organization: MEDIUM }   # más restrictivo: organization MEDIUM (loan: HIGH)
+  criteria: { scale: "5x5" }
+  overall_residual_criterion: MEDIUM   # prEN 18228 cl. 10: criterio del residual GLOBAL más estricto que loan (HIGH)
+  review_interval: P6M   # revisión semestral (ISO 23894 §6.6): vence en la saga → demuestra el re-cierre review → re-approve
+  risks:
+    # ── RSK — Exclusión crediticia injusta de minorías (el riesgo MEDIDO) ────────
+    - id: risk.unfair-credit-exclusion
+      title: "Unfair Credit Exclusion of Minorities"
+      domain: fairness
+      rationale: "El modelo puede excluir injustamente a grupos protegidos al heredar patrones históricos de discriminación (sexo, edad)."
+      impact: { individual: HIGH, society: HIGH, organization: HIGH }
+      likelihood: LIKELY   # análisis ISO 6.4.3 — inherente LIKELY×HIGH = HIGH
+      treat:
+        - method: REDUCE
+          action: "Acotar la paridad demográfica de la decisión por grupo protegido."
+          controls: [eu/ai-act@2024#art-15]
+          residual_likelihood: UNLIKELY   # 6.5 objetivo: UNLIKELY×HIGH = MEDIUM (dentro del apetito MEDIUM)
+          measures:
+            # CONTROL MEDIDO bloqueante (M-11): la paridad demográfica se mide sobre el HELD-OUT
+            # (test, n=200), no in-sample. demographic_parity_diff ≈ 0.046 [IC95% 0.003–0.174, n=200].
+            # El punto cumple < 0.10 PERO con n=200 el IC cruza el umbral → control INCONCLUSO /
+            # subpoderado (M-1). El within-appetite agregado se sostiene por los niveles de riesgo
+            # declarados; el control de equidad NO lo «confirma» con evidencia potente (held-out corto).
+            - id: unfair-credit-exclusion
+              metric: demographic_parity_diff
+              constraint: "< 0.10"
+              severity: high
+              enforcement: gate
+              lifecycle: [validation]
+              article: "15"
+              frameworks: [eu/dora@2022#art-6]   # riesgo del modelo TIC ⊂ marco de gestión de riesgo TIC
+              control_tier: protective
+              # M-23: una medición de paridad residual evidencia SOLO la evaluación del riesgo de
+              # equidad, la verificación de su control y el residual — no identificación/análisis/
+              # finalidad/testing (fases previas/declarativas). Citas recortadas (11→6).
+              standard_clauses:
+                - "eu/pren-18228@2026#7"      # Risk evaluation
+                - "eu/pren-18228@2026#9.2"    # Implementation & verification of risk control
+                - "eu/pren-18228@2026#9.3"    # Residual risk evaluation
+                - "iso/23894@2023#6.4.4"      # Risk evaluation
+                - "iso/23894@2023#6.5"        # Risk treatment
+                - "eu/pren-18283@2026#bias.residual_evaluation"
+              inputs: { prediction: prediction, dimension: gender }
+            # ── Means DECLARADOS (autodeclaración del proveedor) para los artículos atestados que
+            #    NovaCredit gobierna formalmente — una historia de ÉXITO SÍ declara conformidad.
+            #    `evaluation: manual` + `lifecycle: [monitoring]` → means `declared` (no se computa).
+            - id: risk-management-process
+              metric: risk_management_process_declared
+              constraint: "> 0"
+              severity: medium
+              enforcement: audit
+              evaluation: manual
+              lifecycle: [monitoring]
+              article: "9"
+              standard_clauses: ["iso/23894@2023#6", "eu/pren-18228@2026#6", "eu/pren-18228@2026#6.3", "eu/pren-18228@2026#9.3"]
+              # Proceso de gestión de riesgos documentado y mantenido a lo largo del ciclo (Art.9).
+            - id: technical-documentation
+              metric: technical_documentation_declared
+              constraint: "> 0"
+              severity: medium
+              enforcement: audit
+              evaluation: manual
+              lifecycle: [monitoring]
+              article: "11"
+              standard_clauses: ["eu/pren-18228@2026#13", "eu/pren-18228@2026#6.2.1"]
+              # Documentación técnica (Anexo IV) elaborada y mantenida al día (Art.11).
+            - id: transparency-instructions
+              metric: transparency_instructions_declared
+              constraint: "> 0"
+              severity: medium
+              enforcement: audit
+              evaluation: manual
+              lifecycle: [monitoring]
+              article: "13"
+              standard_clauses: ["eu/pren-18228@2026#12"]
+              # Instrucciones de uso y transparencia hacia el responsable del despliegue (Art.13).
+            # Art.72 — seguimiento posterior a la comercialización (PMS): plan ACCIONABLE de
+            # monitorización de la deriva de EQUIDAD del modelo desplegado. Las tres patas
+            # (disparador observable + cadencia ISO 8601 + cita legal) → `satisfies_art72_pms`
+            # lo reconoce y el §9 del Anexo IV renderiza la cadencia real.
+            - id: post-market-fairness-drift
+              metric: fairness_drift
+              constraint: "< 0.03"
+              severity: medium
+              enforcement: audit
+              evaluation: manual
+              lifecycle: [monitoring]
+              article: "72"
+              standard_clauses: ["iso/42105@2026#monitoring"]
+              trigger: "subida sostenida de la diferencia de paridad demográfica > 0.03 en el modelo desplegado"
+              frequency: "P3M"
+              metric_threshold: "< 0.03"
+              art72_citation: "eu/ai-act@2024#art-72"
+
+    # ── RSK — Datos envenenados por bucles de realimentación (gobernanza Art.10) ─
+    - id: risk.data-governance
+      title: "Poisoned Data from Feedback Loops"
+      domain: data
+      rationale: "Las decisiones sesgadas realimentan el reentrenamiento (profecía autocumplida), degradando la calidad y representatividad del dato."
+      impact: { society: HIGH, organization: MEDIUM }
+      likelihood: POSSIBLE
+      treat:
+        - method: REDUCE
+          action: "Balance de clase, minimización y k-anonimato del dato de entrenamiento."
+          controls: [eu/ai-act@2024#art-10]
+          residual_likelihood: UNLIKELY   # REDUCE activo con controles audit → residual explícitamente bajo
+          measures:
+            # Declaraciones organizativas (no medidas): gobernanza de datos atestiguada.
+            - id: oversight-data-governance
+              metric: oversight_data_governance_declared
+              constraint: "> 0"
+              severity: medium
+              enforcement: audit
+              evaluation: manual
+              lifecycle: [monitoring]
+              article: "10"
+              standard_clauses: ["iso/iec-5259-2@2024#balance", "iso/iec-5259-3@2024#minimization"]
+            - id: k-anonymity-generalization
+              metric: k_anonymity_generalization_declared
+              constraint: "> 0"
+              severity: medium
+              enforcement: audit
+              evaluation: manual
+              lifecycle: [monitoring]
+              article: "10"
+              standard_clauses: ["iso/iec-5259-3@2024#privacy", "mlcommons/croissant-rai@1.0#sensitive-content"]
+              # k-anonimato por GENERALIZACIÓN de edad aplicada en el proceso de publicación/despliegue.
+              # Declaración del proveedor (Art.10 §5 minimización/anonimización).
+
+    # ── RSK — Decisiones automatizadas sin explicabilidad (DENTRO del apetito) ──
+    # Modelo logístico INTERPRETABLE por diseño: POSSIBLE×MEDIUM ≤ apetito MEDIUM → within.
+    # SE TRATA igualmente (supervisión humana Art.14) como buena práctica de gobernanza,
+    # con el residual confirmado dentro del apetito.
+    - id: risk.opacity
+      title: "Automated Decisions without Explainability"
+      domain: transparency
+      rationale: "Decisiones automatizadas sin exactitud mínima defendible comprometen la explicabilidad y el derecho a una decisión justa."
+      impact: { individual: MEDIUM }
+      likelihood: POSSIBLE   # modelo lineal interpretable: opacidad genuinamente baja (≠ caja negra)
+      treat:
+        - method: REDUCE
+          action: "Supervisión humana de la salida del modelo + explicabilidad por coeficientes (Art.14)."
+          controls: [eu/ai-act@2024#art-14]
+          residual_likelihood: UNLIKELY   # POSSIBLE→UNLIKELY×MEDIUM = LOW (dentro del apetito MEDIUM)
+          measures:
+            - id: oversight-mode
+              metric: oversight_mode_declared
+              constraint: "> 0"
+              severity: medium
+              enforcement: audit
+              evaluation: manual
+              lifecycle: [monitoring]
+              article: "14"
+              standard_clauses: ["eu/pren-18229-1@2026#human-oversight", "iso/8200@2024#control-transfer"]
+            - id: oversight-monitor-interpret
+              metric: oversight_monitor_interpret_declared
+              constraint: "> 0"
+              severity: medium
+              enforcement: audit
+              evaluation: manual
+              lifecycle: [monitoring]
+              article: "14"
+              standard_clauses: ["eu/pren-18229-1@2026#human-oversight", "iso/42105@2026#guidance"]
+  applicability: {}

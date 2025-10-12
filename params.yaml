@@ -1,0 +1,9 @@
+# Hiperparámetros del pipeline reproducible (DVC-native). El motor los ancla en `dvc.lock`.
+# `seed` FIJO (determinismo del entrenamiento, Art.15). NovaCredit es un proveedor BIEN
+# GOBERNADO within-appetite: un ÚNICO run con `mitigate: true` desde el inicio (fairlearn
+# DemographicParity, ISO 23894 §6.5), SIN arco rojo→verde. M-11: el control de equidad se mide
+# held-out (n=200) → el punto cumple pero el IC cruza el umbral → INCONCLUSO; la historia de un
+# sistema interpretable que gobierna formalmente sus riesgos y llega a `approved`, con el motor
+# señalando honestamente que la evidencia de equidad held-out está infrapotenciada.
+seed: 42
+mitigate: true

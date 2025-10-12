@@ -1,0 +1,4 @@
+.venv/
+.dvc/cache
+.dvc/tmp
+.venturalitica/runs/

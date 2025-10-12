@@ -1,0 +1,401 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "german-credit-eval",
+  "description": "UCI German Credit (1000 solicitudes) \u2014 eval-set del pilot-loan. Atributos protegidos: gender, age.",
+  "citeAs": "UCI Machine Learning Repository, Statlog (German Credit Data), dataset #144.",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "url": "https://archive.ics.uci.edu/dataset/144",
+  "datePublished": "1994-01-01",
+  "version": "1.0.0",
+  "rai:dataBiases": "Desbalance por sexo en la tasa base de aprobacion (motiva los controles de fairness).",
+  "rai:sensitiveData": "gender, age (atributos protegidos para evaluacion de sesgo).",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "german_credit.csv",
+      "name": "german_credit.csv",
+      "contentUrl": "german_credit.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "eba521d4cf4573eae070dac58e535d1e730e66e996f76ba0180d9d1b608eb043"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "applications",
+      "name": "applications",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "applications/checking_status",
+          "name": "checking_status",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "checking_status"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/duration",
+          "name": "duration",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "duration"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/credit_history",
+          "name": "credit_history",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "credit_history"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/purpose",
+          "name": "purpose",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "purpose"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/credit_amount",
+          "name": "credit_amount",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "credit_amount"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/savings_status",
+          "name": "savings_status",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "savings_status"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/employment",
+          "name": "employment",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "employment"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/installment_commitment",
+          "name": "installment_commitment",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "installment_commitment"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/personal_status_sex",
+          "name": "personal_status_sex",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "personal_status_sex"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/other_parties",
+          "name": "other_parties",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "other_parties"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/residence_since",
+          "name": "residence_since",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "residence_since"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/property_magnitude",
+          "name": "property_magnitude",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "property_magnitude"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/age",
+          "name": "age",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "age"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/other_payment_plans",
+          "name": "other_payment_plans",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "other_payment_plans"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/housing",
+          "name": "housing",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "housing"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/existing_credits",
+          "name": "existing_credits",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "existing_credits"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/job",
+          "name": "job",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "job"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/num_dependents",
+          "name": "num_dependents",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "num_dependents"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/own_telephone",
+          "name": "own_telephone",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "own_telephone"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/foreign_worker",
+          "name": "foreign_worker",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "foreign_worker"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/class",
+          "name": "class",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "class"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/target",
+          "name": "target",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "target"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "applications/gender",
+          "name": "gender",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "german_credit.csv"
+            },
+            "extract": {
+              "column": "gender"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
