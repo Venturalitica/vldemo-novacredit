@@ -1,0 +1,32 @@
+{
+  "schema_version": "venturalitica.ai/v1alpha1",
+  "program_uid": "a4435dea-3cec-544b-9a3d-029345322fb2",
+  "triple": {
+    "code": "c15b110df1623502e5198fd8f2bc3cce50c9047e",
+    "model": "logreg:seed=1",
+    "dataset": ""
+  },
+  "sections": {
+    "classification": {
+      "status": "valid",
+      "input_hash": "sha256:014e28a79d5294274efb20261d3e09e63d0b02ddf9c5a1bf90c2999377d65312",
+      "edge_type": "scope"
+    },
+    "measurement-data": {
+      "status": "valid",
+      "input_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "edge_type": "data"
+    },
+    "measurement-model": {
+      "status": "valid",
+      "input_hash": "sha256:bd2048d79c121c6ab9d47f8bd45134a50cfe252ac1e06eb4072ce27b7fdc42eb",
+      "edge_type": "impl"
+    },
+    "risks": {
+      "status": "valid",
+      "input_hash": "sha256:014e28a79d5294274efb20261d3e09e63d0b02ddf9c5a1bf90c2999377d65312",
+      "edge_type": "scope"
+    }
+  },
+  "signed_bundle_digest": "{\"payload\":\"eyJfdHlwZSI6Imh0dHBzOi8vaW4tdG90by5pby9TdGF0ZW1lbnQvdjEiLCJwcmVkaWNhdGUiOnsic3RhdGVtZW50X3ZlcnNpb24iOjEsInRvb2wiOiJ2ZW50aCJ9LCJwcmVkaWNhdGVUeXBlIjoiaHR0cHM6Ly92ZW50dXJhbGl0aWNhLmFpL2F0dGVzdGF0aW9uL3YxIiwic3ViamVjdCI6W3siZGlnZXN0Ijp7InNoYTI1NiI6ImQ3MDVhZTk0ZjM3YjJmODk0NjRiYzliMTgxOTQ1ZGJlYjgzNzhiNzA4YzcxOWRjZDg1ZDRjMzczNzhkMjA2NTcifSwibmFtZSI6ImJ1bmRsZS5qc29uIn1dfQ==\",\"payloadType\":\"application/vnd.in-toto+json\",\"signatures\":[{\"keyid\":\"05eae31b228b49b3f49a625a0622511381dcf3ee52d5ab6a3700dfef124b7f3e\",\"sig\":\"/PxqzDHu4MJyiQWjJtw1Px7cai7qQmxRwI9auFtNKuDWSJszrYZWAyjloUqeyC59nvSEF9TxJ0FA+xd8r1HD/w==\"}]}"
+}

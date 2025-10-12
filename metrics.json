@@ -1,0 +1,19 @@
+{
+  "unfair-credit-exclusion": {
+    "value": 0.045634920634920695,
+    "power": {
+      "n": 200,
+      "n_clusters": null,
+      "groups": {
+        "1": 144,
+        "0": 56
+      },
+      "ci_low": 0.0029678994298765267,
+      "ci_high": 0.1737752900666503,
+      "ci_level": 0.95,
+      "method": "bootstrap",
+      "n_boot": 1000,
+      "seed": 42
+    }
+  }
+}

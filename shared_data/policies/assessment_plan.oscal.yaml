@@ -1,0 +1,52 @@
+# GENERADO por `venth compile` desde pilot-novacredit.yaml — NO editar a mano.
+# Fuente de verdad = el AssuranceProgram (capa Art.9). Las measures post-market
+# (lifecycle monitoring/production) se omiten del assessment-plan ex-ante.
+---
+component-definition:
+  uuid: 98c2d25f-8402-5d7e-a0e7-10a3c9c6e982
+  metadata:
+    title: Assessment plan (compilado de AssuranceProgram 'pilot-novacredit')
+    version: 1.0.0
+    oscal-version: 1.2.2
+  components:
+  - uuid: b41b131f-288e-516e-b077-070b8f568322
+    type: software
+    title: pilot-novacredit (assurance)
+    description: Controles ex-ante compilados desde el AssuranceProgram (Art.9 → contrato del gate).
+    control-implementations:
+    - uuid: a96295b0-d47a-5f4b-a257-cefe18fedecb
+      source: '#vl-ai-assurance-profile-2026'
+      description: 'Generado por `venth compile`. NO editar a mano: la fuente es el AssuranceProgram.'
+      implemented-requirements:
+      - uuid: 08b5ab19-0103-5982-8839-0a143d31a022
+        control-id: unfair-credit-exclusion
+        description: Unfair Credit Exclusion of Minorities — demographic_parity_diff
+        props:
+        - name: metric_key
+          value: demographic_parity_diff
+        - name: operator
+          value: lt
+        - name: threshold
+          value: '0.10'
+        - name: severity
+          value: high
+        - name: enforcement_mode
+          value: block
+        - name: evaluation_method
+          value: automated
+        - name: lifecycle_phase
+          value: validation
+        - name: risk_id
+          value: risk.unfair-credit-exclusion
+        - name: control_tier
+          value: protective
+        - name: article
+          value: '15'
+        - name: frameworks
+          value: eu/dora@2022#art-6
+        - name: standard_clauses
+          value: eu/pren-18228@2026#7,eu/pren-18228@2026#9.2,eu/pren-18228@2026#9.3,iso/23894@2023#6.4.4,iso/23894@2023#6.5,eu/pren-18283@2026#bias.residual_evaluation
+        - name: input.dimension
+          value: gender
+        - name: input.prediction
+          value: prediction

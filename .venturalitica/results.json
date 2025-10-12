@@ -1,0 +1,33 @@
+[
+  {
+    "control_id": "unfair-credit-exclusion",
+    "description": "Unfair Credit Exclusion of Minorities \u2014 demographic_parity_diff",
+    "metric_key": "demographic_parity_diff",
+    "threshold": 0.1,
+    "actual_value": 0.045634920634920695,
+    "operator": "lt",
+    "passed": true,
+    "severity": "high",
+    "metadata": {
+      "severity": "high",
+      "enforcement_mode": "block",
+      "evaluation_method": "automated",
+      "lifecycle_phase": "validation",
+      "risk_id": "risk.unfair-credit-exclusion"
+    },
+    "power": {
+      "n": 200,
+      "n_clusters": null,
+      "groups": {
+        "1": 144,
+        "0": 56
+      },
+      "ci_low": 0.0029678994298765267,
+      "ci_high": 0.1737752900666503,
+      "ci_level": 0.95,
+      "method": "bootstrap",
+      "n_boot": 1000,
+      "seed": 42
+    }
+  }
+]
