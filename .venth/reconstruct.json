@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "kind": "reconstruct",
+  "system": "pilot-novacredit",
+  "payload": {
+    "system_name": "pilot-novacredit",
+    "snapshots": [
+      {
+        "sha": "41abfe7e3293516036c51d1589a3c82a1fdff12f",
+        "date": "2025-10-12T07:59:12+00:00",
+        "subject": "run: V1 evidencia (gate GREEN esperado; seed=42)"
+      }
+    ],
+    "risks": [
+      {
+        "risk_id": "risk.unfair-credit-exclusion",
+        "identified_sha": "c15b110df1623502e5198fd8f2bc3cce50c9047e",
+        "identified_date": "2025-10-12T07:59:12Z",
+        "provenance": "declared",
+        "assessment": {
+          "risk_id": "risk.unfair-credit-exclusion",
+          "kind": "threat",
+          "provenance": "declared",
+          "likelihood": "LIKELY",
+          "residual_declared_likelihood": "UNLIKELY",
+          "dimensions": [
+            {
+              "dimension": "individual",
+              "impact": "HIGH",
+              "appetite": "MEDIUM",
+              "inherent_level": "HIGH",
+              "inherent_eval": "exceeds",
+              "residual_level": "MEDIUM",
+              "residual_eval": "within"
+            },
+            {
+              "dimension": "society",
+              "impact": "HIGH",
+              "appetite": "MEDIUM",
+              "inherent_level": "HIGH",
+              "inherent_eval": "exceeds",
+              "residual_level": "MEDIUM",
+              "residual_eval": "within"
+            },
+            {
+              "dimension": "organization",
+              "impact": "HIGH",
+              "appetite": "MEDIUM",
+              "inherent_level": "HIGH",
+              "inherent_eval": "exceeds",
+              "residual_level": "MEDIUM",
+              "residual_eval": "within"
+            }
+          ],
+          "inherent_overall": "HIGH",
+          "residual_overall": "MEDIUM",
+          "requires_treatment": true,
+          "control_confirmed": true,
+          "cycle": {
+            "status": "closed"
+          },
+          "priority": 2
+        }
+      }
+    ],
+    "approval": null,
+    "lifecycle": {
+      "state": "draft"
+    }
+  }
+}

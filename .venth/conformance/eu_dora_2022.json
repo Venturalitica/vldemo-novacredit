@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "kind": "conformance",
+  "system": "pilot-novacredit",
+  "payload": {
+    "clauses": [
+      {
+        "basis": "criterio control_hierarchy conforme",
+        "clause_id": "dora.ict-risk-framework",
+        "cycle_phase": "ict_risk_framework",
+        "decision": "covered",
+        "measures": [],
+        "title": "Marco de gestión de riesgo TIC: jerarquía de controles coherente del activo (proxy per-sistema de Art.5-6; la gobernanza del órgano de dirección es organizacional)"
+      },
+      {
+        "basis": "criterio risk_estimation conforme",
+        "clause_id": "dora.ict-risk-identification",
+        "cycle_phase": "ict_identification",
+        "decision": "covered",
+        "measures": [],
+        "title": "Identificación y clasificación de los riesgos TIC del modelo: todo threat con probabilidad e impacto (Art.8)"
+      },
+      {
+        "basis": "criterios establecidos y aplicados (residual agregado evaluado)",
+        "clause_id": "dora.ict-risk-assessment",
+        "cycle_phase": "ict_assessment",
+        "decision": "covered",
+        "measures": [],
+        "title": "Evaluación del riesgo TIC: residual agregado evaluado contra el criterio declarado (Art.6(2))"
+      },
+      {
+        "basis": "sin measure que la cite ni criterio/artefacto",
+        "clause_id": "dora.ict-protection",
+        "cycle_phase": "ict_protection",
+        "decision": "gap",
+        "measures": [],
+        "title": "Medidas de protección/prevención TIC: integridad, calidad y confidencialidad del dato y del modelo (Art.9)"
+      },
+      {
+        "basis": "sin measure que la cite ni criterio/artefacto",
+        "clause_id": "dora.ict-system-resilience",
+        "cycle_phase": "ict_protection",
+        "decision": "gap",
+        "measures": [],
+        "title": "Integridad y resiliencia del sistema TIC: estabilidad/exactitud mínima del modelo bajo operación (Art.9)"
+      },
+      {
+        "basis": "plan de seguimiento post-market con semántica Art. 72 (cita + disparador + frecuencia ISO 8601)",
+        "clause_id": "dora.ict-detection",
+        "cycle_phase": "ict_detection",
+        "decision": "covered",
+        "measures": [],
+        "title": "Detección de anomalías TIC y vigilancia continua del comportamiento del modelo (Art.10)"
+      },
+      {
+        "basis": "evidencia signed_bundle presente",
+        "clause_id": "dora.backup-resilience",
+        "cycle_phase": "ict_continuity",
+        "decision": "covered",
+        "measures": [],
+        "title": "Reproducibilidad y recuperación del activo TIC: artefacto anclado y recomputable en bundle firmado (proxy per-sistema de Art.12; NO backups de infraestructura)"
+      },
+      {
+        "basis": "plan de seguimiento post-market con semántica Art. 72 (cita + disparador + frecuencia ISO 8601)",
+        "clause_id": "dora.ict-risk-review",
+        "cycle_phase": "ict_review",
+        "decision": "covered",
+        "measures": [],
+        "title": "Revisión periódica del marco de riesgo TIC: review_interval o medida de monitorización declarada (Art.6(5))"
+      },
+      {
+        "basis": "sin measure que la cite ni criterio/artefacto",
+        "clause_id": "dora.resilience-testing",
+        "cycle_phase": "ict_testing",
+        "decision": "gap",
+        "measures": [],
+        "title": "Pruebas de resiliencia operativa digital: validación/evaluación per-sistema del activo TIC mediante controles bloqueantes evaluados (Art.24-25; NO TLPT Art.26)"
+      },
+      {
+        "basis": "BOM firmado presente en el bundle",
+        "clause_id": "dora.third-party-register",
+        "cycle_phase": "ict_third_party",
+        "decision": "covered",
+        "measures": [],
+        "title": "Materia prima del Registro de Información de terceros TIC: componentes inventariados en BOM CycloneDX firmado con purl (Art.28(3); el Registro completo lo genera la nube)"
+      },
+      {
+        "basis": "plan de seguimiento post-market con semántica Art. 72 (cita + disparador + frecuencia ISO 8601)",
+        "clause_id": "dora.incident-management",
+        "cycle_phase": "ict_incident",
+        "decision": "covered",
+        "measures": [],
+        "title": "Detección y canalización de incidentes TIC del modelo vía plan de monitorización (proxy per-sistema de Art.17; NO el reporte regulatorio Art.19-23)"
+      }
+    ],
+    "standard": "eu/dora@2022"
+  }
+}
